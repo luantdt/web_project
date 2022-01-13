@@ -23,7 +23,7 @@
             if ($size > 2 * 1024 * 1024) {
                 $mess_av  = "Tập tin hình ảnh lớn hơn quy định cho phép.";
             } else if ($type === "jpg" || $type === "jpeg" || $type === "png" ) {
-                $dest = $_SERVER['DOCUMENT_ROOT'] . '/web/final/public/avt/' .'av' . $id . '.' . $type;
+                $dest = $_SERVER['DOCUMENT_ROOT'] . '/web/web_project/public/avt/' .'av' . $id . '.' . $type;
                 move_uploaded_file($tmp, $dest);
                 $xl_nguoi_dung->cap_nhap_anh('/public/avt/' .'av' . $id . '.' . $type , $id);
                 $mess_av  = "Bạn đã cập nhập hình ảnh đại diện thành công.";
@@ -51,7 +51,7 @@
                             $hashed = password_hash($newpass, PASSWORD_BCRYPT);
                             $xl_nguoi_dung->cap_nhao_mat_khau_theo_id($id,$hashed);
                             unset($_SESSION['thong_tin_user']);
-                            header('location: http://localhost:8080/web/final/?page=redirect');
+                            header('location: http://localhost:8080/web/web_project/?page=redirect');
                         } else {
                             $mess_pw  =  "Mật khẩu mới phải có độ dài lớn hơn 7 ký tự";
                         }

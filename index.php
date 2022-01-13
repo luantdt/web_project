@@ -24,7 +24,7 @@
         } else if($_GET['page'] == 'redirect' && !isset($_SESSION['thong_tin_user'])){
             include_once('./pages/trang_chuyen_huong.php');
         } else {
-            header('location: http://localhost:8080/web/final/');
+            header('location: http://localhost:8080/web/web_project/');
         }
         
     } 

@@ -1,11 +1,11 @@
 <?php
     if (!isset($_GET['id']) || empty($_GET['id'])) {
-        header('location: http://localhost:8080/web/final/?page=404');
+        header('location: http://localhost:8080/web/web_project/?page=404');
     }
 
     $id = decrypt($_GET['id']);
     if(!$id || !is_numeric($id)) {
-        header('location: http://localhost:8080/web/final/?page=404');
+        header('location: http://localhost:8080/web/web_project/?page=404');
     }
     include_once('./model/xl_task.php');
     $xl_task = new xl_task();
@@ -13,7 +13,7 @@
 
     if ($_SESSION['thong_tin_user']->id != $cong_viec->user_id) {
         if ($_SESSION['thong_tin_user']->role == 'employee') {
-            header('location: http://localhost:8080/web/final/?page=404');
+            header('location: http://localhost:8080/web/web_project/?page=404');
         }
     }
 

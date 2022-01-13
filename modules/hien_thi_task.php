@@ -36,7 +36,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href=<?php echo("http://localhost:8080/web/final/?page=detail&id=" . encrypt($id))?> class="btn btn-primary">Xem chi tiết</a>
+                        <a href=<?php echo("http://localhost:8080/web/web_project/?page=detail&id=" . encrypt($id))?> class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>

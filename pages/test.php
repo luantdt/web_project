@@ -48,7 +48,7 @@
         };
 
         if ($type === "jpg" || $type === "jpeg" || $type === "png" ) {
-            $dest = $_SERVER['DOCUMENT_ROOT'] . '/web/final/public/avt/' .'av' . $id . '.' . $type;
+            $dest = $_SERVER['DOCUMENT_ROOT'] . '/web/web_project/public/avt/' .'av' . $id . '.' . $type;
             move_uploaded_file($tmp, $dest);
             echo "tai len thanh cong";
         } else {
@@ -74,7 +74,7 @@
     /* echo '<pre>',print_r($_SESSION['thong_tin_user']),'</pre>';
     echo($_SESSION['thong_tin_nguoi_dung']->role); */
     /* /%2Fpublic%2Ftask%2F51900815_TranVuLuan_Tuan1.png
-    http://localhost:8080/web/final/api/tai_file_trong_task.php/?file=%2Fpublic%2Ftask%2F51900815_TranVuLuan_Tuan1.png */
+    http://localhost:8080/web/web_project/api/tai_file_trong_task.php/?file=%2Fpublic%2Ftask%2F51900815_TranVuLuan_Tuan1.png */
     /* echo(urlencode('/public/task/51900815_TranVuLuan_Tuan1.png')) */
     include_once('./model/xl_task.php');
     $xl_task = new xl_task();
