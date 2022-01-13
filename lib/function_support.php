@@ -22,6 +22,10 @@
         return $new_string;
     }
 
+    function format_time ($time) {
+        return date('d-m-y H:i:s',strtotime($time));
+    }
+
     function hien_alert($flag_err,$mess) {
          /* show message */
         if ($mess != '') {

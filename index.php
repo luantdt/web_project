@@ -4,8 +4,6 @@
 
     if(isset($_GET['page'])) {
         if(isset($_SESSION['thong_tin_user'])){
-            //$thong_tin_user_cookie = $_COOKIE['thong_tin_user_cookie'];
-            //echo '<pre>',print_r($_SESSION['thong_tin_user']),'</pre>';
             include_once('./lib/function_support.php');
             include_once('./widgets/header.php');
             if($_GET['page'] == 'dashboard'){

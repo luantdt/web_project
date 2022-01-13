@@ -20,14 +20,30 @@
             }
 
             if ($key === 'id') {
-                $id = $element;
+                $id_task = $element;
+            }
+
+            if ($key === 'status') {
+                $status = $element;
             }
         }
 
         ?>
             <div class="col-sm-3 mt-3 " >
                 <div class="card he-default shadow-sm">
-                    <h5 class="card-header">
+                    <h5 class="card-header <?php
+                        if ($status == "new") {
+                            echo('bg-warning');
+                        } else if ($status == "in progress") {
+                            echo('bg-primary');
+                        } else if ($status == "completed") {
+                            echo('bg-success');
+                        } else if ($status == "rejected") {
+                            echo('bg-danger');
+                        } else {
+                            echo('bg-secondary');
+                        }
+                    ?>">
                         <?php echo ($name) ?>
                     </h5>
                     <div class="card-body">
@@ -36,7 +52,7 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href=<?php echo("http://localhost:8080/web/web_project/?page=detail&id=" . encrypt($id))?> class="btn btn-primary">Xem chi tiết</a>
+                        <a href=<?php echo("http://localhost:8080/web/web_project/?page=detail&id=" . encrypt($id_task))?> class="btn btn-primary">Xem chi tiết</a>
                     </div>
                 </div>
             </div>

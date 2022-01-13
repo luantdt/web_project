@@ -36,5 +36,13 @@
             $this->setSQL($string_sql);
             $this->update();
         }
+
+        function hien_thi_thong_tin_user_theo_department_id ($department_id) {
+            $string_sql = "SELECT * FROM `users` WHERE `department_id` = $department_id";
+            $this->setSQL($string_sql);
+            $this->execute();
+            $result = $this->loadAllRow();
+            return $result;
+        }
     }
 ?>

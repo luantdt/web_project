@@ -43,14 +43,6 @@
             $this->update();
         }
 
-        function hien_thi_thong_tin_nop_task_theo_file($file) {
-            $str_sql = "SELECT * FROM tuong_tac_task WHERE file = '$file'";
-            $this->setSQL($str_sql);
-            $this->execute();
-            $result = $this->loadRow();
-            return $result;
-        }
-
         function hien_thi_tat_ca_thong_tin_nop_task ($id) {
             $str_sql = "SELECT * FROM tuong_tac_task WHERE task_id = '$id'";
             $this->setSQL($str_sql);
@@ -67,6 +59,12 @@
 
         function cap_nhap_trang_thai_tuong_tac_task ($id, $status_old, $status_new) {
             $str_sql = "UPDATE tuong_tac_task SET status = '$status_new' WHERE tuong_tac_task.task_id = $id AND tuong_tac_task.status = '$status_old'";
+            $this->setSQL($str_sql);
+            $this->update();
+        }
+
+        function them_task_moi ($name_task, $sumary_task, $descript_task, $end_time, $select_id, $us_create, $id_department) {
+            $str_sql = "INSERT INTO `task` (`id`, `name`, `user_id`, `status`, `description`, `summary`, `end_time`, `department_id`, `user_created`) VALUES (NULL, '$name_task', '$select_id', 'new', '$descript_task', '$sumary_task', '$end_time', '$id_department', '$us_create')";
             $this->setSQL($str_sql);
             $this->update();
         }

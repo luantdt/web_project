@@ -60,6 +60,7 @@
     /* include_once('./model/xl_task.php');
     $xl_task = new xl_task();
     $xl_task->cap_nhap_trang_thai_task(1,"in progress"); */
+
     /* $res = $xl_task->hien_thi_tat_ca_thong_tin_nop_task(1);
 
     include_once('./model/xl_nguoi_dung.php');
@@ -71,12 +72,25 @@
         $thong_tin = $xl_nguoi_dung->thong_tin_nguoi_dung_theo_id_tai_khoan($value['user_id']);
         echo($thong_tin->role);
     } */
+
     /* echo '<pre>',print_r($_SESSION['thong_tin_user']),'</pre>';
     echo($_SESSION['thong_tin_nguoi_dung']->role); */
     /* /%2Fpublic%2Ftask%2F51900815_TranVuLuan_Tuan1.png
     http://localhost:8080/web/web_project/api/tai_file_trong_task.php/?file=%2Fpublic%2Ftask%2F51900815_TranVuLuan_Tuan1.png */
     /* echo(urlencode('/public/task/51900815_TranVuLuan_Tuan1.png')) */
-    include_once('./model/xl_task.php');
+
+    /* include_once('./model/xl_nguoi_dung.php');
+    $xl_nguoi_dung = new xl_nguoi_dung();
+    $res = $xl_nguoi_dung->hien_thi_thong_tin_user_theo_department_id(1);
+    foreach ($user_department as $value) {
+        if ($value['role'] == 'employee') {
+            
+        }
+    } */
+    /* $tiem = '2022-01-13T13:39';
+    echo(date('d-m-y H:i:s',strtotime($tiem))); */
+    /* print_r(explode(' - ', '16 - aaa')) */
+    /* include_once('./model/xl_task.php');
     $xl_task = new xl_task();
-    $xl_task->cap_nhap_trang_thai_task(1,'waiting');
+    $xl_task->them_task_moi('a','a','a','2021-2-1 03:41:54','16','16','1'); */
 ?>
