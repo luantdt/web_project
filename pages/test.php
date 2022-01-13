@@ -90,7 +90,4 @@
     /* $tiem = '2022-01-13T13:39';
     echo(date('d-m-y H:i:s',strtotime($tiem))); */
     /* print_r(explode(' - ', '16 - aaa')) */
-    /* include_once('./model/xl_task.php');
-    $xl_task = new xl_task();
-    $xl_task->them_task_moi('a','a','a','2021-2-1 03:41:54','16','16','1'); */
 ?>

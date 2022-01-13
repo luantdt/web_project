@@ -23,7 +23,7 @@
             echo json_encode (
                 array(
                     'error' => true,
-                    'message' => 'Thiếu thông tin'
+                    'message' => 'Information is invalid'
                 )
             );
             die();
@@ -128,14 +128,14 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                                 <button type="submit" class="btn btn-primary" id="btn-add-task" name="btn-add-task">Thêm công việc</button>
                             </div>
-                        </div>
-                        <div class="m-3">
-                            <?php
-                                if ($mess_err_task != '') {
-                                    hien_alert(0,$mess_err_task);
-                                }
-                            ?>
+                            <div class="m-3">
+                                <?php
+                                    if ($mess_err_task != '') {
+                                        hien_alert(0,$mess_err_task);
+                                    }
+                                ?>
                         </div> 
+                        </div>
                     </form>
                 </div>
                 </div>

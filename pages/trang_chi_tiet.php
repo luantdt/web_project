@@ -122,6 +122,56 @@
         $cong_viec = $xl_task->hien_thi_cong_viec_theo_id($id);
     }
 
+    // xử lý thay đổi thời gian end_time
+    $mess_err_change_time = '';
+    if (isset($_POST['btn-change-end-time'])) {
+        if (isset($_POST['end-time-change']) && isset($_POST['id-task'])) { 
+            if ($_POST['end-time-change'] != '' && $_POST['id-task'] != '') {
+                $time_format = format_time_ymd($_POST['end-time-change']);
+                $id_task = decrypt($_POST['id-task']);
+                
+                $xl_task->thay_doi_thoi_gian_het_han($id_task, $time_format); 
+                header("Refresh:0"); 
+            } else {
+                $mess_err_change_time  =  "Thông tin không được để trống";
+            }
+        } else {
+            echo json_encode (
+                array(
+                    'error' => true,
+                    'message' => 'Information is invalid'
+                )
+            );
+            die();
+        }
+    }
+
+    if (isset($_POST['btn-cancel-task'])) {
+        if (isset($_POST['id-task'])) {
+            if ($_POST['id-task'] != '') {
+                $id_task = decrypt($_POST['id-task']);
+                $xl_task->cap_nhap_trang_thai_task($id_task, 'canceled');
+                header("Refresh:0");
+            } else {
+                echo json_encode (
+                    array(
+                        'error' => true,
+                        'message' => 'Information is invalid'
+                    )
+                );
+                die();
+            }
+        } else {
+            echo json_encode (
+                array(
+                    'error' => true,
+                    'message' => 'Information is invalid'
+                )
+            );
+            die();
+        }
+    }
+
     $res_task = $xl_task->hien_thi_tat_ca_thong_tin_nop_task($id);
     include_once('./model/xl_nguoi_dung.php');
     $xl_nguoi_dung = new xl_nguoi_dung();
@@ -198,23 +248,94 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Thay đổi thời gian nộp</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Thay đổi</button>
-        </div>
-        </div>
-    </div>
-</div>
+<?php
+    if ($_SESSION['thong_tin_user']->role != 'employee') {
+        ?>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h3 class="modal-title text-white" id="staticBackdropLabel"><?php 
+                            if ($cong_viec->status == 'new') {
+                                echo('Chú ý');
+                            } else {
+                                echo('Thay đổi thời gian hết hạn');
+                            }
+                        ?></h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <?php
+                        if ($cong_viec->status == 'new') {
+                            ?>
+                                <form action="" method="post">
+                                    <div class="modal-body">
+                                        <div class="mt-2 text-danger">
+                                            <b>
+                                                Bạn có chắc chắn muốn cancel công việc này?
+                                            </b>
+                                        </div>
+                                        <input type="text" value="<?php echo($_GET['id'])?>" style="display: none" name="id-task">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <?php
+                                            if ($cong_viec->status == 'new') {
+                                                ?>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                                    <button type="submit" class="btn btn-primary" name="btn-cancel-task">Có</button>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" name="btn-cancel-task">Thay đổi</button>
+                                                <?php
+                                            }
+                                        ?>
+                                        
+                                    </div>
+                                    <div class="m-3">
+                                        <?php
+                                            if ($mess_err_change_time != '') {
+                                                hien_alert(0,$mess_err_change_time);
+                                            }
+                                        ?>
+                                    </div> 
+                                </form>
+                            <?php
+                        }  else {
+                            ?>
+                                <form action="" method="post">
+                                    <div class="modal-body">
+                                        <div class="mt-2">
+                                            <label for="end-time-change">Thời gian hết hạn</label>
+                                            <input name="end-time-change" id="end-time-change" class="form-control" type="datetime-local">
+                                        </div>
+                                        <input type="text" value="<?php echo($_GET['id'])?>" style="display: none" name="id-task">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="btn-change-end-time">Thay đổi</button>
+                                    </div>
+                                    <div class="m-3">
+                                        <?php
+                                            if ($mess_err_change_time != '') {
+                                                hien_alert(0,$mess_err_change_time);
+                                            }
+                                        ?>
+                                    </div> 
+                                </form>
+                            <?php
+                        }
+                    ?>
+                    </div>
+                </div>
+
+            </div>
+        <?php
+        if(isset($_POST['btn-change-end-time'])) {
+            echo("<script>$('.modal').modal('show')</script>");
+        }
+    }
+?>

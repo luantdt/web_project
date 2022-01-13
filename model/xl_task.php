@@ -68,5 +68,11 @@
             $this->setSQL($str_sql);
             $this->update();
         }
+
+        function thay_doi_thoi_gian_het_han ($id_task, $change_time) {
+            $str_sql = "UPDATE `task` SET `end_time` = '$change_time' WHERE `task`.`id` = '$id_task'";
+            $this->setSQL($str_sql);
+            $this->update();
+        }
     }
 ?>

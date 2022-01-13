@@ -22,7 +22,11 @@
         return $new_string;
     }
 
-    function format_time ($time) {
+    function format_time_ymd ($time) {
+        return date('y-m-d H:i:s',strtotime($time));
+    }
+
+    function format_time_dmy ($time) {
         return date('d-m-y H:i:s',strtotime($time));
     }
 
@@ -105,9 +109,13 @@
                                         if ($is_you == 'you') {
                                             echo(' của bạn');
                                         } else {
-                                            echo(' từ ' . $role);
+                                            if ($role == 'employee') {
+                                                echo(' trạng thái');
+                                            } else {
+                                                echo(' từ ' . $role);
+                                            }     
                                         }
-                                    } 
+                                    }
                                 ?>: <b class="upper">
                                 <?php if($arr['status'] == 'waiting') {
                                     echo($arr['status'] . '...');
@@ -132,7 +140,14 @@
                                 <?php
                             }
                         ?>
-                        <small id="uploadHelp" class="form-text text-muted w-100">Được gửi bởi <?php echo($role)?></small>
+                        <small id="uploadHelp" class="form-text text-muted w-100">Được gửi bởi <?php 
+                            if ($is_you == 'you') {
+                                echo('bạn');
+                            } else {
+                                echo($role);
+                            }
+                        ?>
+                        </small>
                     </div>
                 </div>
             </div>
@@ -153,7 +168,7 @@
             } else if ($status == 'canceled') {
                 ?>
                     <p>
-                        Công việc đã bị hủy bởi <b>CẤP TRÊN</b>
+                        Công việc đã bị hủy bởi <b class="text-danger">CẤP TRÊN</b>
                     </p>
                     <button type="button" class="btn btn-danger" id="redirect">QUAY VỀ DASHBOARD</button>
                 <?php
@@ -209,12 +224,12 @@
                         Công việc <b class="text-danger">chưa được nhân viên bắt đầu</b>, bạn có thể hủy công việc này!
                     </p>
                     <button type="button" class="btn btn-primary" id="redirect">QUAY VỀ DASHBOARD</button>
-                    <button type="button" class="btn btn-danger" id="">HỦY CÔNG VIỆC</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">HỦY CÔNG VIỆC</button>
                 <?php
             } else if ($status == 'canceled') {
                 ?>
                     <p>
-                        Công việc đã bị hủy bởi <b>BẠN HOẶC GIÁM ĐỐC</b>
+                        Công việc đã bị hủy bởi <b class="text-danger">BẠN HOẶC GIÁM ĐỐC</b>
                     </p>
                     <button type="button" class="btn btn-danger" id="redirect">QUAY VỀ DASHBOARD</button>
                 <?php
@@ -241,7 +256,6 @@
                         <button id="btn-reject-task" type="submit" class="btn btn-danger mt-3" style="width: 120px;" name="btn-reject-task">Từ chối</button>
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">Hoàn thành</button>
                     </form>
-                    <button id="btn-feedback-task" type="button" class="btn btn-warning mt-3" style="width: 250px;" >Thay đổi thời gian nộp</button> 
                 <?php
             } else if ($status == "completed"){
                 ?>

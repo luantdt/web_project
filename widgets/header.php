@@ -1,6 +1,4 @@
 <?php
-    $name = $_SESSION['thong_tin_user']->fullName;
-    
     if (isset($_GET['func'])) {
         $func = $_GET['func'];
 
@@ -21,12 +19,13 @@
             </a>
         </div>
 
-        <div class="col-sm-7"></div>
-        <div class="col-sm-3 center-center-row-flex">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-4 center-center-row-flex">
             <div class="usname fs-25 ">
                 <a href="http://localhost:8080/web/web_project/?page=infor" class="hover-red">
+                    <img src="<?php echo('.' . $_SESSION['thong_tin_user']->pic)?>" class=" circle-shadow">
                     <?php
-                        echo($name)
+                        echo($_SESSION['thong_tin_user']->fullName);
                     ?>
                 </a>
             </div>
