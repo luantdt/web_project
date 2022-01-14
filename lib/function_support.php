@@ -78,7 +78,7 @@
                                 </div>
 
                                 <div class="col-sm-3 text-secondary font-time" >
-                                    <?php echo($arr['time'])?>
+                                    <?php echo(format_time_dmy($arr['time']))?>
                                 </div>
                             </div>
                         </h5>
@@ -229,7 +229,7 @@
             } else if ($status == 'canceled') {
                 ?>
                     <p>
-                        Công việc đã bị hủy bởi <b class="text-danger">BẠN HOẶC GIÁM ĐỐC</b>
+                        Công việc đã bị hủy bởi <b class="text-danger">TRƯỞNG PHÒNG HOẶC GIÁM ĐỐC</b>
                     </p>
                     <button type="button" class="btn btn-danger" id="redirect">QUAY VỀ DASHBOARD</button>
                 <?php
@@ -293,6 +293,7 @@
             ?>
                 <tr>
                     <?php
+
                         echo('<th>'.$i.'</th>');
                         foreach($el  as $key => $val) {
                             if ($key == 'user_created') {
@@ -313,7 +314,6 @@
                                     } else {
                                         echo('<td>'.'<b class="text-danger">TỪ CHỐI</b>'.'</td>');
                                     }
-                                    
                                 } else {
                                     echo('<td>'.$val.'</td>');
                                 }
@@ -321,20 +321,23 @@
                         }
                         if($isbutton) {
                             ?>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <form action="">
-                                            <button type="button" class="btn btn-success">Đồng ý</button>
-                                        </form>
-                                        <form action="">
-                                            <button type="button" class="btn btn-danger">Từ chối</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <form action="" method="post" id="form-letter">
+                                    <td>
+                                        <textarea id="feelback-letter" name="feelback-letter" class="form-control" rows="3" placeholder="Nhập phản hồi để gửi thao tác"></textarea>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group rounded" role="group">
+                                            <input type="text" value="<?php echo(encrypt($el['id']))?>" name="id-letter" style="display:none">
+                                            <button name="btn-accept-letter" type="submit" class="btn btn-success rounded-left">Đồng ý</button>
+                                            <button name="btn-deny-letter" type="submit" class="btn btn-danger rounded-right">Từ chối</button>
+                                        </div>
+                                    </td>
+                                </form>
                             <?php
                         }
                     ?>
                 </tr>
+
             <?php
         }
     }

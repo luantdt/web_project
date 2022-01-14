@@ -16,8 +16,7 @@
 
         function execute(){
             $this->sth = $this->db->prepare($this->sql);
-            $this->sth->execute();  
-            //$res = $this->db->query($this->sql);
+            $this->sth->execute();
             $this->sth = $this->sth->get_result();
             return $this->sth->num_rows;
         }

@@ -31,19 +31,11 @@
             return $result;
         }
 
-        function hien_thi_tat_ca_don_nghi_phep_tru_mot_id($id){
-            $string_sql = "SELECT * FROM `nghi_phep` WHERE `user_created` != $id";
-            $this->setSQL($string_sql);
-            $this->execute();
-            $result = $this->loadAllRow();
-            return $result;
-        }
-
-        function hien_thi_don_chua_duyet_theo_phong_ban_tru_truong_phong ($type,$department_id, $leader_id) {
+        function hien_thi_tat_ca_don_nghi_phep_chua_hoac_da_duyet_tru_mot_id($type,$id){
             if ($type) {
-                $string_sql = "SELECT u.*, s.* FROM nghi_phep u inner join users s on u.user_created = s.id WHERE s.department_id = '$department_id' AND u.status = '' AND u.user_created != '$leader_id'";
+                $string_sql = "SELECT * FROM `nghi_phep` WHERE `status` != '' AND `user_created` != $id";
             } else {
-                $string_sql = "SELECT u.*, s.* FROM nghi_phep u inner join users s on u.user_created = s.id WHERE s.department_id = '$department_id' AND u.status != '' AND u.user_created != '$leader_id'";
+                $string_sql = "SELECT * FROM `nghi_phep` WHERE `status` = '' AND `user_created` != $id";
             }
             $this->setSQL($string_sql);
             $this->execute();
@@ -65,6 +57,18 @@
             $this->execute();
             $result = $this->loadAllRow();
             return $result;
+        }
+
+        function cap_phep_don_xin_phep_bang_id ($id, $status, $fb, $responder) {
+            $string_sql = "UPDATE `nghi_phep` SET `status` = '$status', `feelback` = '$fb' , `responder` = '$responder' WHERE `nghi_phep`.`id` = '$id'";
+            $this->setSQL($string_sql);
+            $this->update();
+        }
+
+        function them_ngay_nghi_phep ($start_date, $end_date, $reason, $id_create) {
+            $string_sql = "INSERT INTO `nghi_phep` (`id`, `user_created`, `start`, `end`, `reason`, `status`, `feelback`, `responder`) VALUES (NULL, '$id_create', '$start_date', '$end_date', '$reason', '', '', '')";
+            $this->setSQL($string_sql);
+            $this->update();
         }
     }
 ?>

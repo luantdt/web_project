@@ -41,7 +41,7 @@
                 $dest = '/public/task/'. $nname . '(new)' . '.' .$type;
             }
 
-            move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].'/web/web_project'.$dest);
+            move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].' /web_project'.$dest);
             $mess = '';
             if ($_POST['comment']) {
                 $mess = $_POST['comment'];
@@ -86,7 +86,7 @@
         
                         $dest = '/public/task/'. $nname . '(new)' . '.' .$type;
                     }
-                    move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].'/web/web_project'.$dest);
+                    move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].'/web_project'.$dest);
                 }
             }
             $mess = $_POST['comment_fb'];
@@ -192,12 +192,12 @@
                     </div>
                     <div class="col-sm-6 date">
                         <?php
-                            echo($cong_viec->creation_time);
+                            echo(format_time_dmy($cong_viec->creation_time));
                         ?>
                     </div>
                     <div class="col-sm-6 deadline">
                         <?php
-                            echo("Đến hạn ". $cong_viec->end_time);
+                            echo("Đến hạn ". format_time_dmy($cong_viec->end_time));
                         ?>
                     </div>
                 </div>
@@ -217,6 +217,9 @@
             </div>
             <div class="mt-1">
                 Chức vụ: <b><?php echo($thong_tin_nguoi_tao->role)?></b>
+            </div>
+            <div class="mt-1">
+                Đã tạo vào: <b><?php echo(format_time_dmy($cong_viec->creation_time))?></b>
             </div>
             <div class="history mt-4">
                 <div class="title">

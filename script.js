@@ -6,14 +6,14 @@ $(document).ready(function(){
         setInterval(function () {
             time -= 1;
             if (time == -1 ) {
-                window.location="http://localhost:8080/web_project/";
+                window.location="./";
             } else {
                 $('.count-down').text(time);
             }
         }, 1000);
 
         $('.redirect-login').click(function (){
-            window.location="http://localhost:8080/web_project/";
+            window.location="./";
         });
     };
     $('#btn-reject-task').click(function (){
@@ -187,6 +187,47 @@ $(document).ready(function(){
         $("." + area).append(alert);
     }
     $('#redirect').click(function (){
-        window.location="http://localhost:8080/web_project/";
+        window.location="./";
+    });
+    $("#form-letter").submit(function () {
+        if ( $("#feelback-letter").val() == '') {
+            alert('Bạn cần nhập thông tin phản hồi để gửi thao tác');
+            return false;
+        }
+        var result = confirm("Bạn có chắc chắn muốn gửi không?");
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    });
+
+    $("#form-send-letter").submit(function () {
+        if ( $("#start-date").val() == '') {
+            alert('Bạn cần nhập thông tin thời gian bắt đầu để gửi thao tác');
+            return false;
+        } else if ($("#end-date").val() == ''){
+            alert('Bạn cần nhập thông tin thời gian kết thúc để gửi thao tác');
+            return false;
+        } else if ($("#your-reason").val() == '') {
+            alert('Bạn cần nhập thông tin lý do để gửi thao tác');
+            return false;
+        } else {
+            let start_date, end_date, text;
+            start_date = new Date($("#start-date").val());
+            end_date = new Date($("#end-date").val());
+            if (start_date > end_date) {
+                alert('Lỗi! Ngày bắt đầu xa hơn ngày kết thúc.Thông tin của ngày kết thúc phải xa hơn ngày bắt đầu');
+                return false;
+            } else {
+                var result = confirm("Bạn có chắc chắn muốn gửi không?");
+                if (result) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
     });
 })
