@@ -51,7 +51,7 @@
                             $hashed = password_hash($newpass, PASSWORD_BCRYPT);
                             $xl_nguoi_dung->cap_nhao_mat_khau_theo_id($id,$hashed);
                             unset($_SESSION['thong_tin_user']);
-                            header('location: http://localhost:8080/web/web_project/?page=redirect');
+                            header('location: ./?page=redirect');
                         } else {
                             $mess_pw  =  "Mật khẩu mới phải có độ dài lớn hơn 7 ký tự";
                         }

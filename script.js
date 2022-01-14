@@ -6,14 +6,14 @@ $(document).ready(function(){
         setInterval(function () {
             time -= 1;
             if (time == -1 ) {
-                window.location="http://localhost:8080/web/web_project/";
+                window.location="http://localhost:8080/web_project/";
             } else {
                 $('.count-down').text(time);
             }
         }, 1000);
 
         $('.redirect-login').click(function (){
-            window.location="http://localhost:8080/web/web_project/";
+            window.location="http://localhost:8080/web_project/";
         });
     };
     $('#btn-reject-task').click(function (){
@@ -187,6 +187,6 @@ $(document).ready(function(){
         $("." + area).append(alert);
     }
     $('#redirect').click(function (){
-        window.location="http://localhost:8080/web/web_project/";
+        window.location="http://localhost:8080/web_project/";
     });
 })

@@ -22,7 +22,7 @@
                     $_SESSION['thong_tin_user'] = $nguoi_dung;
                 } */
                 $_SESSION['thong_tin_user'] = $nguoi_dung;
-                header('location: /web/web_project/?page=dashboard');
+                header('location: ./?page=dashboard');
             }
             else {
                 echo 'tài khoản hoặc mật khẩu không hợp lệ';

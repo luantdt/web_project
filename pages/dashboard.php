@@ -12,7 +12,7 @@
         if (isset($_POST['name_task']) && isset($_POST['sumary_task']) && isset($_POST['descript_task']) && isset($_POST['end_time']) && isset($_POST['select_user'])) {
             if ($_POST['name_task'] != '' && $_POST['sumary_task'] != '' && $_POST['descript_task'] != '' && $_POST['end_time'] != '' && $_POST['select_user'] != '') {
                 $select_id = explode(' - ', $_POST['select_user']);
-                $end_time = format_time($_POST['end_time']);
+                $end_time = format_time_ymd($_POST['end_time']);
 
                 $xl_task->them_task_moi ($_POST['name_task'], $_POST['sumary_task'], $_POST['descript_task'], $end_time, $select_id[0], $thong_thin_user->id, $thong_thin_user->department_id);
                 header("Refresh:0");
@@ -43,23 +43,26 @@
                 <div class="col-sm-3 mt-3 " >
                     <div class="card he-default shadow-sm">
                         <div class="container p-4">
-                            <div class="text-warning font-weight-bold">
-                                <i class="bi bi-circle-fill mr-2"></i>Công việc mới
+                            <div class="text-orange font-weight-bold">
+                                <i class="bi bi-circle-fill mr-1"></i>Công việc mới
                             </div>
                             <div class="text-success font-weight-bold">
-                                <i class="bi bi-circle-fill mr-2"></i>Công việc đã hoàn thành
+                                <i class="bi bi-circle-fill mr-1"></i>Công việc đã hoàn thành
                             </div>
                             <div class="text-primary font-weight-bold">
-                                <i class="bi bi-circle-fill mr-2"></i>Công việc đang tiến hành 
+                                <i class="bi bi-circle-fill mr-1"></i>Công việc đang tiến hành 
                             </div>
                             <div class="text-danger font-weight-bold">
-                                <i class="bi bi-circle-fill mr-2"></i>Công việc bị từ chối 
+                                <i class="bi bi-circle-fill mr-1"></i>Công việc bị từ chối 
                             </div>
                             <div class="text-secondary font-weight-bold">
-                                <i class="bi bi-circle-fill mr-2"></i>Công việc đã bị hủy 
+                                <i class="bi bi-circle-fill mr-1"></i>Công việc đã bị hủy 
+                            </div>
+                            <div class="text-warning font-weight-bold">
+                                <i class="bi bi-circle-fill mr-1"></i>Công việc đang đợi duyệt
                             </div>
                             <?php
-                                if ($thong_thin_user->role != "employee") {
+                                if ($thong_thin_user->role == "leader") {
                                     ?>
                                         <button type="button" class="btn btn-dark mt-3" data-toggle="modal" data-target="#exampleModal">+ Thêm công việc mới</button>
                                     <?php
@@ -75,7 +78,7 @@
         </div>
     </div>
     <?php
-    if ($thong_thin_user->role != "employee") {
+    if ($thong_thin_user->role == "leader") {
         ?>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -134,11 +137,11 @@
                                         hien_alert(0,$mess_err_task);
                                     }
                                 ?>
-                        </div> 
+                            </div> 
                         </div>
                     </form>
                 </div>
-                </div>
+            </div>
         <?php
     }
     if(isset($_POST['btn-add-task'])) {

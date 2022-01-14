@@ -33,7 +33,7 @@
                                 echo("mt-1 func cur-pointer");
                             }
                         ?>">
-                            <a href="<?php echo("http://localhost:8080/web/web_project/?page=" . $key)?>">
+                            <a href="<?php echo("./?page=" . $key)?>">
                                 <?php echo($element) ?>
                             </a>
                         </div>

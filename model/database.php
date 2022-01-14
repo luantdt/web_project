@@ -34,10 +34,6 @@
         function loadRow(){
             return $this->sth->fetch_object();
         }
-
-        /* function lasInsertId(){
-            return $this->db->                                                                                  ();
-        } */
     }
 
 ?>

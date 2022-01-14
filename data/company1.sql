@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2022 at 10:18 PM
+-- Generation Time: Jan 14, 2022 at 04:51 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -46,27 +46,31 @@ INSERT INTO `department` (`id`, `name`, `amount_people`, `description`, `leader_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employee_leave`
+-- Table structure for table `nghi_phep`
 --
 
-CREATE TABLE `employee_leave` (
-  `id` int(11) DEFAULT NULL,
-  `token` int(11) NOT NULL,
-  `start` date DEFAULT NULL,
-  `end` date DEFAULT NULL,
-  `reason` char(100) DEFAULT NULL,
-  `status` char(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `nghi_phep` (
+  `id` int(11) NOT NULL,
+  `user_created` int(11) NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `reason` varchar(5000) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `feelback` varchar(5000) NOT NULL,
+  `responder` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `employee_leave`
+-- Dumping data for table `nghi_phep`
 --
 
-INSERT INTO `employee_leave` (`id`, `token`, `start`, `end`, `reason`, `status`) VALUES
-(12, 1, '2020-09-03', '2020-09-05', 'COVID-19', 'Cancelled'),
-(12, 3, '2020-09-10', '2020-09-12', 'May Lagnat', 'Cancelled'),
-(12, 4, '2021-12-29', '2021-12-30', 'lazy', 'Approved'),
-(15, 5, '2021-12-30', '2021-12-31', 'lazy', 'Approved');
+INSERT INTO `nghi_phep` (`id`, `user_created`, `start`, `end`, `reason`, `status`, `feelback`, `responder`) VALUES
+(2, 16, '2022-01-13', '2022-01-18', 'Bệnh covid', 'đồng ý', 'ok nhe', 'leader'),
+(3, 16, '2022-01-13', '2022-01-18', 'bênh', 'từ chối', 'hông bé ơi', 'leader'),
+(4, 16, '2022-01-13', '2022-01-20', 'bệnh', '', '', ''),
+(5, 16, '2022-01-13', '2022-01-19', 'bệnh', '', '', ''),
+(6, 15, '2022-01-13', '2022-01-25', 'bệnh', '', '', ''),
+(7, 15, '2022-01-20', '2022-01-31', 'bệnh sếp ơi', 'đồng ý', 'ok nha em', 'admin');
 
 -- --------------------------------------------------------
 
@@ -82,7 +86,6 @@ CREATE TABLE `task` (
   `description` mediumtext NOT NULL,
   `summary` varchar(1000) NOT NULL,
   `creation_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `submit_status` varchar(50) NOT NULL,
   `end_time` datetime NOT NULL,
   `department_id` int(11) NOT NULL,
   `user_created` int(11) NOT NULL
@@ -92,10 +95,14 @@ CREATE TABLE `task` (
 -- Dumping data for table `task`
 --
 
-INSERT INTO `task` (`id`, `name`, `user_id`, `status`, `description`, `summary`, `creation_time`, `submit_status`, `end_time`, `department_id`, `user_created`) VALUES
-(1, 'Khảo sát 1', 16, 'completed', 'Khảo sát thị trường TP HCM, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường TP HCM', '2022-01-13 03:37:09', '', '2022-01-27 01:50:42', 1, 15),
-(2, 'Khảo sát 2', 16, 'in progress', 'Khảo sát thị trường Hà Nội, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-13 03:41:54', 'Đã giao', '2022-01-31 01:52:33', 1, 15),
-(3, 'Khảo sát 3', 12, 'new', 'Khảo sát khu vực Đà Nẵng, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-12 21:07:16', 'Đã Giao', '2022-01-18 13:10:32', 1, 15);
+INSERT INTO `task` (`id`, `name`, `user_id`, `status`, `description`, `summary`, `creation_time`, `end_time`, `department_id`, `user_created`) VALUES
+(1, 'Khảo sát 1', 16, 'completed', 'Khảo sát thị trường TP HCM, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường TP HCM', '2022-01-13 03:37:09', '2022-01-27 01:50:42', 1, 15),
+(2, 'Khảo sát 2', 16, 'completed', 'Khảo sát thị trường Hà Nội, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-14 02:46:30', '2022-01-21 16:22:00', 1, 15),
+(3, 'Khảo sát 3', 12, 'new', 'Khảo sát khu vực Đà Nẵng, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-13 16:15:24', '2014-01-22 16:15:00', 1, 15),
+(9, 'Khảo sát 4', 16, 'canceled', 'Tìm hiểu dân số, phong tục, tập  quán và thời gian thích hợp để mở rộng kinh doang', 'Khảo sát thị trường An giang', '2022-01-13 16:43:26', '2021-10-18 12:59:00', 1, 15),
+(10, 'Khảo sát 5', 16, 'reject', 'Khảo sát thị trường Cần Thơ......', 'Khảo sát thị trường Cần Thơ', '2022-01-14 03:12:56', '2022-01-28 03:12:00', 1, 15),
+(11, 'Khảo sát 6', 16, 'waiting', 'test 1', 'test 1', '2022-01-14 03:19:33', '2022-01-30 03:17:00', 1, 15),
+(12, 'Khảo sát 7', 16, 'in progress', 'test 2', 'test 2', '2022-01-14 03:19:48', '2022-01-29 03:18:00', 1, 15);
 
 -- --------------------------------------------------------
 
@@ -123,7 +130,13 @@ INSERT INTO `tuong_tac_task` (`id`, `task_id`, `file`, `comment`, `time`, `user_
 (11, 1, '/public/task//public/task/ask.png', 'ok chưa anh', '2022-01-12 21:33:12', 16, 'rejected'),
 (12, 1, '/public/task/an-toan-mang.jpg', 'no... làm theo mẫu', '2022-01-12 21:35:17', 17, 'rejected'),
 (13, 1, '/public/task//public/task/bhyt2.png', 'finish', '2022-01-12 21:36:24', 16, 'completed'),
-(14, 1, '', 'ok', '2022-01-12 21:37:09', 17, 'completed');
+(14, 1, '', 'ok', '2022-01-12 21:37:09', 17, 'completed'),
+(16, 2, '/public/task//public/task/bluetooth.jpg', '', '2022-01-13 18:34:06', 16, 'completed'),
+(17, 2, '', 'aa', '2022-01-13 20:46:30', 15, 'completed'),
+(18, 10, '/public/task/broadcasting-dark.png', 'gửi', '2022-01-13 20:47:28', 16, 'reject'),
+(19, 10, '/public/task/dienmayxanh-amp.jpg', 'từ chối', '2022-01-13 21:12:23', 15, 'reject'),
+(20, 11, '/public/task/dienmayxanh-amp.jpg', 'okok', '2022-01-13 21:19:33', 16, 'waiting'),
+(21, 12, '/public/task/promise_hau.png', 'okok', '2022-01-13 21:19:48', 16, 'waiting');
 
 -- --------------------------------------------------------
 
@@ -137,7 +150,7 @@ CREATE TABLE `users` (
   `username` varchar(100) NOT NULL,
   `password` text NOT NULL,
   `birthday` date NOT NULL,
-  `gender` varchar(10) NOT NULL,
+  `gender` varchar(10) CHARACTER SET utf8 NOT NULL,
   `role` varchar(100) NOT NULL,
   `pic` text NOT NULL,
   `department_id` int(11) DEFAULT NULL
@@ -148,11 +161,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullName`, `username`, `password`, `birthday`, `gender`, `role`, `pic`, `department_id`) VALUES
-(12, 'alabatrap', 'dntrphu1311', '$2y$10$ms6c5hjMFzi0A.IvDbZn9.a4P7127qiUV7XFbGfbU7MnCPVWvQEq', '2011-01-11', 'Male', 'employee', '/public/avt/default.jpg', 1),
-(15, 'Phu Trong duong nguyen', 'leader', '$2y$10$iSxGE4VAcZkE3T5LxDtOJeC0c/u5sG/qxUVEfcqGeULrTsy4.0vpW', '2011-11-22', 'Male', 'leader', '/public/avt/av15.jpg', 1),
-(16, 'newmember', 'newmember', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-06', 'Male', 'employee', '/public/avt/av16.jpg', 1),
-(17, 'Tran Vu Luan', 'admin', '$2y$10$WAZm2hZ2RJPR9SeFe9ICkuYf7zxNmZYOwnC0DcUnoyqdwNKbWzrfu', '2022-01-04', 'male', 'admin', '/public/avt/av17.jpg', 2),
-(19, 'a', 'a', 'abc', '0000-00-00', '', '', '', NULL);
+(12, 'alabatrap', 'dntrphu1311', '$2y$10$ms6c5hjMFzi0A.IvDbZn9.a4P7127qiUV7XFbGfbU7MnCPVWvQEq', '2011-01-11', 'Nam', 'employee', '/public/avt/default.jpg', 1),
+(15, 'Phu Trong duong nguyen', 'leader', '$2y$10$iSxGE4VAcZkE3T5LxDtOJeC0c/u5sG/qxUVEfcqGeULrTsy4.0vpW', '2011-11-22', 'Nam', 'leader', '/public/avt/av15.png', 1),
+(16, 'newmember', 'newmember', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-06', 'Nam', 'employee', '/public/avt/av16.jpg', 1),
+(17, 'Tran Vu Luan', 'admin', '$2y$10$WAZm2hZ2RJPR9SeFe9ICkuYf7zxNmZYOwnC0DcUnoyqdwNKbWzrfu', '2022-01-04', 'Nam', 'admin', '/public/avt/av17.jpg', 2),
+(20, 'Steve Cook', 'employee', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-20', 'Nam', 'employee', '/public/avt/default.jpg', 1);
 
 --
 -- Indexes for dumped tables
@@ -165,11 +178,11 @@ ALTER TABLE `department`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `employee_leave`
+-- Indexes for table `nghi_phep`
 --
-ALTER TABLE `employee_leave`
-  ADD PRIMARY KEY (`token`),
-  ADD KEY `employee_leave_ibfk_1` (`id`);
+ALTER TABLE `nghi_phep`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_created_leave` (`user_created`);
 
 --
 -- Indexes for table `task`
@@ -207,38 +220,38 @@ ALTER TABLE `department`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `employee_leave`
+-- AUTO_INCREMENT for table `nghi_phep`
 --
-ALTER TABLE `employee_leave`
-  MODIFY `token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `nghi_phep`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tuong_tac_task`
 --
 ALTER TABLE `tuong_tac_task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `employee_leave`
+-- Constraints for table `nghi_phep`
 --
-ALTER TABLE `employee_leave`
-  ADD CONSTRAINT `employee_leave_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `nghi_phep`
+  ADD CONSTRAINT `fk_user_created_leave` FOREIGN KEY (`user_created`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `task`

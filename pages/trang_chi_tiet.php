@@ -1,11 +1,11 @@
 <?php
     if (!isset($_GET['id']) || empty($_GET['id'])) {
-        header('location: http://localhost:8080/web/web_project/?page=404');
+        header('location: ./?page=404');
     }
 
     $id = decrypt($_GET['id']);
     if(!$id || !is_numeric($id)) {
-        header('location: http://localhost:8080/web/web_project/?page=404');
+        header('location: ./?page=404');
     }
     include_once('./model/xl_task.php');
     $xl_task = new xl_task();
@@ -13,7 +13,7 @@
 
     if ($_SESSION['thong_tin_user']->id != $cong_viec->user_id) {
         if ($_SESSION['thong_tin_user']->role == 'employee') {
-            header('location: http://localhost:8080/web/web_project/?page=404');
+            header('location: ./?page=404');
         }
     }
 
@@ -40,14 +40,14 @@
 
                 $dest = '/public/task/'. $nname . '(new)' . '.' .$type;
             }
-            
-            move_uploaded_file($tmp, $dest);
+
+            move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].'/web/web_project'.$dest);
             $mess = '';
             if ($_POST['comment']) {
                 $mess = $_POST['comment'];
             }
-            $xl_task->nhap_thong_tin_tuong_tac_task($id, '/public/task/' . $dest , $mess, $_SESSION['thong_tin_user']->id, 'waiting');
             $xl_task->cap_nhap_trang_thai_task($id,'waiting');
+            $xl_task->nhap_thong_tin_tuong_tac_task($id, $dest , $mess, $_SESSION['thong_tin_user']->id, 'waiting');
 
             echo json_encode(
                 array(
@@ -85,8 +85,8 @@
                         $nname = $arr[0];
         
                         $dest = '/public/task/'. $nname . '(new)' . '.' .$type;
-                        move_uploaded_file($tmp, $dest);
                     }
+                    move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].'/web/web_project'.$dest);
                 }
             }
             $mess = $_POST['comment_fb'];
@@ -175,11 +175,7 @@
     $res_task = $xl_task->hien_thi_tat_ca_thong_tin_nop_task($id);
     include_once('./model/xl_nguoi_dung.php');
     $xl_nguoi_dung = new xl_nguoi_dung();
-
-    $name = $cong_viec->name;
-    $creation_time = $cong_viec->creation_time;
-    $end_time = $cong_viec->end_time;
-    $description = $cong_viec->description;
+    $thong_tin_nguoi_tao = $xl_nguoi_dung->thong_tin_nguoi_dung_theo_id_tai_khoan($cong_viec->user_created);
 ?>
 
 <div class="container-fluid p-5">
@@ -190,26 +186,37 @@
                     <div class="col-sm-12">
                         <h3>
                             <?php
-                                echo($name);
+                                echo($cong_viec->name);
                             ?>
                         </h3>
                     </div>
                     <div class="col-sm-6 date">
                         <?php
-                            echo($creation_time);
+                            echo($cong_viec->creation_time);
                         ?>
                     </div>
                     <div class="col-sm-6 deadline">
                         <?php
-                            echo("Đến hạn ". $end_time);
+                            echo("Đến hạn ". $cong_viec->end_time);
                         ?>
                     </div>
                 </div>
             </div>
             <div class="detail fs-23 mt-3 ">
                 <?php
-                    echo($description);
+                    echo($cong_viec->description);
                 ?>
+
+            </div>
+            <hr>
+            <div class="mt-1">
+                Người tạo: <b><?php echo($thong_tin_nguoi_tao->fullName)?></b>
+            </div>
+            <div class="mt-1">
+                Văn phòng: <b><?php echo($thong_tin_nguoi_tao->name)?></b>
+            </div>
+            <div class="mt-1">
+                Chức vụ: <b><?php echo($thong_tin_nguoi_tao->role)?></b>
             </div>
             <div class="history mt-4">
                 <div class="title">

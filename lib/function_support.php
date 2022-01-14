@@ -254,7 +254,7 @@
                             </div>
                         </div>
                         <button id="btn-reject-task" type="submit" class="btn btn-danger mt-3" style="width: 120px;" name="btn-reject-task">Từ chối</button>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#staticBackdrop">Hoàn thành</button>
+                        <button id="btn-success-task" type="submit" class="btn btn-success mt-3" style="width: 150px;" name="btn-success-task">Hoàn thành</button>
                     </form>
                 <?php
             } else if ($status == "completed"){
@@ -281,6 +281,61 @@
                 <?php
             }
             
+        }
+    }
+
+    function in_hang_trong_don_nghi_phep ($isbutton, $arr) {
+        include_once('./model/xl_nguoi_dung.php');
+        $xl_nguoi_dung = new xl_nguoi_dung();
+        $i = 0;
+        foreach ($arr as $el) {
+            $i += 1;
+            ?>
+                <tr>
+                    <?php
+                        echo('<th>'.$i.'</th>');
+                        foreach($el  as $key => $val) {
+                            if ($key == 'user_created') {
+                                $infor = $xl_nguoi_dung->thong_tin_nguoi_dung_theo_id_tai_khoan($val);
+                                echo('<td>'.$infor->fullName.'</td>');
+                            } else  if( $key == 'id' ) {
+                                continue;
+                            } else if ($key == 'fullName'){
+                                break;
+                            } else if (($key == 'status' || $key == 'responder' || $key == 'feelback') && $isbutton == true){
+                                break;
+                            } else if ($val == '') {
+                                echo('<td>'.'<b class="text-warning">WAITING...</b>'.'</td>');
+                            } else {
+                                if ($key == 'status') {
+                                    if ($val == 'đồng ý') {
+                                        echo('<td>'.'<b class="text-success">ĐỒNG Ý</b>'.'</td>');
+                                    } else {
+                                        echo('<td>'.'<b class="text-danger">TỪ CHỐI</b>'.'</td>');
+                                    }
+                                    
+                                } else {
+                                    echo('<td>'.$val.'</td>');
+                                }
+                            }
+                        }
+                        if($isbutton) {
+                            ?>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <form action="">
+                                            <button type="button" class="btn btn-success">Đồng ý</button>
+                                        </form>
+                                        <form action="">
+                                            <button type="button" class="btn btn-danger">Từ chối</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            <?php
+                        }
+                    ?>
+                </tr>
+            <?php
         }
     }
 ?>

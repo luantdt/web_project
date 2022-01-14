@@ -90,4 +90,9 @@
     /* $tiem = '2022-01-13T13:39';
     echo(date('d-m-y H:i:s',strtotime($tiem))); */
     /* print_r(explode(' - ', '16 - aaa')) */
+    /* include_once('./model/xl_don_nghi_phep.php');
+    $xl_don_nghi_phep = new xl_don_nghi_phep();
+    $res = $xl_don_nghi_phep->hien_thi_don_nghi_phep_theo_user_created(16);   
+    echo '<pre>',print_r($res),'</pre>'; */
+    /* echo($_SERVER["DOCUMENT_ROOT"]); */
 ?>

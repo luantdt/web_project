@@ -8,6 +8,10 @@ ul {
   list-style-type: none;
 }
 
+.el-center {
+  margin: 0px auto;
+}
+
 a {
     color: black;
 }
@@ -160,4 +164,12 @@ a:hover {
 }
 .upper {
   text-transform: uppercase;
+}
+
+.bg-orange {
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);;
+}
+
+.text-orange {
+  color: #ff7e5f;
 }

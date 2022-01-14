@@ -16,13 +16,15 @@
                 include_once('./pages/trang_chi_tiet.php');
             } else if ($_GET['page'] == 'infor') {
                 include_once('./pages/trang_thong_tin_nguoi_dung.php');
+            } else if ($_GET['page'] == 'letter') {
+                include_once('./pages/trang_quan_ly_don_xin_phep.php');
             } else {
                 include_once('./pages/404.php');
             }
         } else if($_GET['page'] == 'redirect' && !isset($_SESSION['thong_tin_user'])){
             include_once('./pages/trang_chuyen_huong.php');
         } else {
-            header('location: http://localhost:8080/web/web_project/');
+            header('location: ./');
         }
         
     } 

@@ -6,5 +6,8 @@
             parent::database();
         }
         
+        function hien_thi_phong_ban_theo_id ($id) {
+            
+        }
     }
 ?>
