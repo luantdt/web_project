@@ -8,3 +8,5 @@ Các tài khoản có trong database
     leader: 12345
     newmember: 123123123    (123 ba lần)
     employee: 123123123     (123 ba lần)
+    dion: 123123123         (123 ba lần)
+    code: 12345678

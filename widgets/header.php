@@ -9,8 +9,11 @@
             header('location: ./?page=404');
         }
     }
+    $check = password_verify($_SESSION['thong_tin_user']->username, $_SESSION['thong_tin_user']->password);
+    if ($check) {
+        header('location: ./?page=changpwd');
+    }
 ?>
-
 <body>
     <div class="col-sm-12 nav shadow ">
         <div class="name text-header col-sm-2">

@@ -33,20 +33,19 @@
             );
         } else {
             $dest = '/public/task/' . $name;
-            if (file_exists($dest)) {
+            if (file_exists($_SERVER["DOCUMENT_ROOT"].' /web_project'.$dest)) {
                 $arr = explode('.',$name);
-                $type = array_pop($arr);
+                $type = $arr[1];
                 $nname = $arr[0];
 
                 $dest = '/public/task/'. $nname . '(new)' . '.' .$type;
             }
-
+            $xl_task->cap_nhap_trang_thai_task($id,'waiting');
             move_uploaded_file($tmp, $_SERVER["DOCUMENT_ROOT"].' /web_project'.$dest);
             $mess = '';
             if ($_POST['comment']) {
                 $mess = $_POST['comment'];
             }
-            $xl_task->cap_nhap_trang_thai_task($id,'waiting');
             $xl_task->nhap_thong_tin_tuong_tac_task($id, $dest , $mess, $_SESSION['thong_tin_user']->id, 'waiting');
 
             echo json_encode(

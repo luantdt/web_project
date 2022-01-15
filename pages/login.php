@@ -14,34 +14,28 @@
 
         if($nguoi_dung) {
             if(password_verify($mat_khau, $nguoi_dung->password)){//đúng mật khẩu
-                echo 'Login successfull';
-                /* if($_POST['remember']){
-                    setcookie("thong_tin_user_cookie", $nguoi_dung->tai_khoan, time()+3600);
-                }
-                else{
-                    $_SESSION['thong_tin_user'] = $nguoi_dung;
-                } */
                 $_SESSION['thong_tin_user'] = $nguoi_dung;
                 header('location: ./?page=dashboard');
             }
             else {
-                echo 'tài khoản hoặc mật khẩu không hợp lệ';
+                echo '<script>alert("tài khoản hoặc mật khẩu không hợp lệ");</script>';
             }
         }
         else {
-            echo 'alert("Tai khoan chua duoc tao")';
+            echo '<script>alert("Tài khoản chưa được tạo");</script>';
         }
     }
 ?>
-<body>
+
+<body class="body-login">
 	<header>
 		<nav>
-			<h1>Company management</h1>
+			<h1>CompanyAdmin</h1>
 		</nav>
 	</header>
 	<div class="divider"></div>
 
-	<div class="card mx-auto" style="width: 30rem;">
+	<div class="card mx-auto card-des" style="width: 30rem;">
 		<!-- <img class="card-img-top mx-auto" style="width:60%;" src="./images/login.png" alt="Login Icon"> -->
 		<div class="card-body">
 			
@@ -53,11 +47,11 @@
 			<div class="form-group">
 			  <label>Password</label>
 			  <input type="password" class="form-control" name="password" placeholder="Enter password" required="required">
-				<!-- <small id="p_error" class="form-text text-muted"></small> -->
+			
 			</div>
-			<input type="submit" class="btn btn-primary" name="login-submit" value="Login">
+			  <input type="submit" class="btn btn-primary" name="login-submit" value="Login">
 		  </form>
 		</div>
-	  </div>			
+	  </div>
 </body>
 </html>

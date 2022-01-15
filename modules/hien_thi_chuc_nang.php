@@ -10,10 +10,8 @@
         'department' => 'Quản lý phòng ban'
     );
     
-    if ($role == "employee") { 
+    if ($role != "admin") { 
         $stop = 'Quản lý nhân viên';
-    } else if ($role == "leader") {
-        $stop = 'Quản lý phòng ban';
     } else {
         $stop = "";
     }

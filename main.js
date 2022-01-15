@@ -230,4 +230,59 @@ $(document).ready(function(){
             }
         }
     });
+
+    $("#form-create-new-user").submit(function() {
+        if ( $("#full-name").val() == '') {
+            alert('Bạn cần nhập thông tin họ và tên bắt đầu để gửi thao tác');
+            return false;
+        } else if ($("#username").val() == ''){
+            alert('Bạn cần nhập thông tin tên đăng nhập để gửi thao tác');
+            return false;
+        } else if ($("#birthday").val() == '') {
+            alert('Bạn cần nhập thông tin ngày sinh để gửi thao tác');
+            return false;
+        } else if ($("#gender").val() == '') {
+            alert('Bạn cần nhập thông tin giới tính để gửi thao tác');
+            return false;
+        } else if ($("#department").val() == '') {
+            alert('Bạn cần nhập thông tin phòng ban để gửi thao tác');
+            return false;
+        } else {
+            let result = confirm("Bạn có chắc chắn muốn tạo tài khoản mới không?");
+            if (result) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    })
+
+    $("#form-reset-pwd").submit(function() {
+        var result = confirm("Bạn có chắc chắn muốn gửi không?");
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+
+    $("#change-pwd-access").submit(function() {
+        if ( $("#new-passowrd").val() == '') {
+            alert('Bạn cần nhập thông tin mật khẩu bắt đầu để gửi thao tác');
+            return false;
+        } else if ($("#new-re-passowrd").val() == ''){
+            alert('Bạn cần nhập thông tin xác nhận mật khẩu để gửi thao tác');
+            return false;
+        } else if ($("#new-re-passowrd").val() != $("#new-passowrd").val()) {
+            alert('Bạn cần nhập thông tin xác nhận mật khẩu đúng mới với mật khẩu mới để gửi thao tác');
+            return false;
+        } else  {
+            let result = confirm("Bạn có chắc chắn muốn thực hiện thao tác không?");
+            if (result) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    })
 })

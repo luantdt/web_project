@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2022 at 04:51 AM
+-- Generation Time: Jan 15, 2022 at 04:44 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `company1`
 --
+CREATE DATABASE IF NOT EXISTS `company1` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `company1`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +43,8 @@ CREATE TABLE `department` (
 
 INSERT INTO `department` (`id`, `name`, `amount_people`, `description`, `leader_id`) VALUES
 (1, 'Nhân Sự', 15, 'Phòng Quản lý nhân sự', 12),
-(2, 'Giám Đốc', 1, 'Nơi quản lý hết mọi thứ', 17);
+(2, 'Giám Đốc', 1, 'Nơi quản lý hết mọi thứ', 17),
+(4, 'IT', 50, 'Phòng công nghệ thông tin', 23);
 
 -- --------------------------------------------------------
 
@@ -65,12 +68,15 @@ CREATE TABLE `nghi_phep` (
 --
 
 INSERT INTO `nghi_phep` (`id`, `user_created`, `start`, `end`, `reason`, `status`, `feelback`, `responder`) VALUES
-(2, 16, '2022-01-13', '2022-01-18', 'Bệnh covid', 'đồng ý', 'ok nhe', 'leader'),
-(3, 16, '2022-01-13', '2022-01-18', 'bênh', 'từ chối', 'hông bé ơi', 'leader'),
+(2, 16, '2022-01-13', '2022-01-18', 'Bệnh covid', 'đồng ý', 'Ok... được phép nghỉ', 'leader'),
+(3, 16, '2022-01-13', '2022-01-18', 'bênh', 'từ chối', 'Hông bé ơi', 'leader'),
 (4, 16, '2022-01-13', '2022-01-20', 'bệnh', '', '', ''),
-(5, 16, '2022-01-13', '2022-01-19', 'bệnh', '', '', ''),
+(5, 16, '2022-01-13', '2022-01-19', 'bệnh', 'từ chối', 'Không được. Nghỉ quá nhiều rồi', 'admin'),
 (6, 15, '2022-01-13', '2022-01-25', 'bệnh', '', '', ''),
-(7, 15, '2022-01-20', '2022-01-31', 'bệnh sếp ơi', 'đồng ý', 'ok nha em', 'admin');
+(7, 15, '2022-01-20', '2022-01-31', 'bệnh sếp ơi', 'đồng ý', 'ok nha em', 'admin'),
+(8, 20, '2022-01-14', '2022-01-19', 'Có việc ở gia đình', '', '', ''),
+(9, 15, '2022-01-14', '2022-01-22', 'Sếp cho xin phép nghỉ một ngày. Chở vợ đi đẻ', '', '', ''),
+(10, 24, '2022-01-19', '2022-01-29', 'Nhà có việc', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -98,11 +104,13 @@ CREATE TABLE `task` (
 INSERT INTO `task` (`id`, `name`, `user_id`, `status`, `description`, `summary`, `creation_time`, `end_time`, `department_id`, `user_created`) VALUES
 (1, 'Khảo sát 1', 16, 'completed', 'Khảo sát thị trường TP HCM, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường TP HCM', '2022-01-13 03:37:09', '2022-01-27 01:50:42', 1, 15),
 (2, 'Khảo sát 2', 16, 'completed', 'Khảo sát thị trường Hà Nội, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-14 02:46:30', '2022-01-21 16:22:00', 1, 15),
-(3, 'Khảo sát 3', 12, 'new', 'Khảo sát khu vực Đà Nẵng, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-13 16:15:24', '2014-01-22 16:15:00', 1, 15),
+(3, 'Khảo sát 3', 12, 'canceled', 'Khảo sát khu vực Đà Nẵng, nhằm tăng phạm vi kinh doanh', 'Khảo sát thị trường Hà Nội', '2022-01-14 21:14:47', '2014-01-22 16:15:00', 1, 15),
 (9, 'Khảo sát 4', 16, 'canceled', 'Tìm hiểu dân số, phong tục, tập  quán và thời gian thích hợp để mở rộng kinh doang', 'Khảo sát thị trường An giang', '2022-01-13 16:43:26', '2021-10-18 12:59:00', 1, 15),
 (10, 'Khảo sát 5', 16, 'reject', 'Khảo sát thị trường Cần Thơ......', 'Khảo sát thị trường Cần Thơ', '2022-01-14 03:12:56', '2022-01-28 03:12:00', 1, 15),
 (11, 'Khảo sát 6', 16, 'waiting', 'test 1', 'test 1', '2022-01-14 03:19:33', '2022-01-30 03:17:00', 1, 15),
-(12, 'Khảo sát 7', 16, 'in progress', 'test 2', 'test 2', '2022-01-14 03:19:48', '2022-01-29 03:18:00', 1, 15);
+(12, 'Khảo sát 7', 16, 'in progress', 'test 2', 'test 2', '2022-01-14 03:19:48', '2022-01-29 03:18:00', 1, 15),
+(13, 'Khảo sát 8', 20, 'completed', 'khảo sát 8', 'khảo sát 8', '2022-01-15 17:05:55', '2022-01-27 12:58:00', 1, 15),
+(14, 'Công việc mới', 24, 'waiting', 'Công việc bắt đầu cho ngày mới', 'Công việc bắt đầu cho ngày mới', '2022-01-15 17:11:19', '2022-01-31 16:53:00', 4, 23);
 
 -- --------------------------------------------------------
 
@@ -136,7 +144,8 @@ INSERT INTO `tuong_tac_task` (`id`, `task_id`, `file`, `comment`, `time`, `user_
 (18, 10, '/public/task/broadcasting-dark.png', 'gửi', '2022-01-13 20:47:28', 16, 'reject'),
 (19, 10, '/public/task/dienmayxanh-amp.jpg', 'từ chối', '2022-01-13 21:12:23', 15, 'reject'),
 (20, 11, '/public/task/dienmayxanh-amp.jpg', 'okok', '2022-01-13 21:19:33', 16, 'waiting'),
-(21, 12, '/public/task/promise_hau.png', 'okok', '2022-01-13 21:19:48', 16, 'waiting');
+(21, 12, '/public/task/promise_hau.png', 'okok', '2022-01-13 21:19:48', 16, 'waiting'),
+(30, 14, '/public/task/dienmayxanh-amp.jpg', '', '2022-01-15 11:11:19', 24, 'waiting');
 
 -- --------------------------------------------------------
 
@@ -161,11 +170,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullName`, `username`, `password`, `birthday`, `gender`, `role`, `pic`, `department_id`) VALUES
-(12, 'alabatrap', 'dntrphu1311', '$2y$10$ms6c5hjMFzi0A.IvDbZn9.a4P7127qiUV7XFbGfbU7MnCPVWvQEq', '2011-01-11', 'Nam', 'employee', '/public/avt/default.jpg', 1),
+(12, 'alabatrap', 'dntrphu1311', '$2y$10$Yn0AjZbyx7QHE9ucUUiiZu9os43quabOB18pC79NNpXPARz754BRu', '2011-01-11', 'Nam', 'employee', '/public/avt/default.jpg', 1),
 (15, 'Phu Trong duong nguyen', 'leader', '$2y$10$iSxGE4VAcZkE3T5LxDtOJeC0c/u5sG/qxUVEfcqGeULrTsy4.0vpW', '2011-11-22', 'Nam', 'leader', '/public/avt/av15.png', 1),
 (16, 'newmember', 'newmember', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-06', 'Nam', 'employee', '/public/avt/av16.jpg', 1),
-(17, 'Tran Vu Luan', 'admin', '$2y$10$WAZm2hZ2RJPR9SeFe9ICkuYf7zxNmZYOwnC0DcUnoyqdwNKbWzrfu', '2022-01-04', 'Nam', 'admin', '/public/avt/av17.jpg', 2),
-(20, 'Steve Cook', 'employee', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-20', 'Nam', 'employee', '/public/avt/default.jpg', 1);
+(17, 'Tran Vu Luan', 'admin', '$2y$10$w3HOgKGZfPCZep3MOSCMa.WlkjZ9ZKLqit74fz0LOjJ6FbhZhKy82', '2022-01-04', 'Nam', 'admin', '/public/avt/av17.jpg', 2),
+(20, 'Steve Cook', 'employee', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-20', 'Nam', 'employee', '/public/avt/default.jpg', 1),
+(23, 'Visual Studio Code', 'code', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-15', 'Nam', 'leader', '/public/avt/default.jpg', 4),
+(24, 'Celine Dion', 'dion', '$2y$10$z8AaaslZx1RiuXko7DnJ5eFO9IbGttACkNJB7ALZ6cB3X25jVN2wG', '2022-01-01', 'Nữ', 'employee', '/public/avt/default.jpg', 4),
+(27, 'Tran Vu Luan', 'luan', '$2y$10$o2Kup0nNXWKAzRWW7V5AleuWsolUWSVsOwEkTKZXYrzNqpVGArQuK', '2016-01-14', 'Nam', 'employee', '/public/avt/default.jpg', 4);
 
 --
 -- Indexes for dumped tables
@@ -217,31 +229,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nghi_phep`
 --
 ALTER TABLE `nghi_phep`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tuong_tac_task`
 --
 ALTER TABLE `tuong_tac_task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

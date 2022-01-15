@@ -20,7 +20,6 @@
             $string_sql = "SELECT u.*, s.* FROM users u inner join department s on u.department_id = s.id  WHERE u.id = $id";
             $this->setSQL($string_sql);
             $this->execute();
-            // echo '<pre>',print_r($re),'</pre>';exit;
             $result = $this->loadRow();
             return $result;
         }
@@ -44,5 +43,23 @@
             $result = $this->loadAllRow();
             return $result;
         }
+        
+        function hien_thi_tat_ca_thong_tin_nguoi_dung () {
+            $string_sql = "SELECT * from users";
+            $this->setSQL($string_sql);
+            $this->execute();
+            $result = $this->loadAllRow();
+            return $result;
+        }
+
+        function them_tai_khoan_moi ($fullName,$username,$password,$birthday,$gender,$department_id) {
+            $string_sql = "INSERT INTO `users` 
+            (`id`, `fullName`, `username`, `password`, `birthday`, `gender`, `role`, `pic`, `department_id`) 
+            VALUES 
+            (NULL, '$fullName', '$username', '$password', '$birthday', '$gender', 'employee', '/public/avt/default.jpg', '$department_id')";
+            $this->setSQL($string_sql);
+            $this->update();
+        }
+
     }
 ?>

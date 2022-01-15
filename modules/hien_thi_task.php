@@ -1,6 +1,7 @@
 <?php
     $id = $_SESSION['thong_tin_user']->id;
-    
+    $department_id = $_SESSION['thong_tin_user']->department_id;
+    $role = $_SESSION['thong_tin_user']->role;
     include_once('./model/xl_task.php');
     $xl_task = new xl_task();
 
@@ -9,55 +10,19 @@
     } else {
         $tasks = $xl_task->hien_thi_toan_bo_cong_viec($id);
     }
-
+    $name = '';
+    $summary = '';
+    $id_task = '';
+    $status = '';
     foreach($tasks as $arr) {
-        foreach($arr as $key => $element) {
-            if ($key === 'name') {
-                $name = $element;
+        $flag = false;
+        if (count($arr) )
+        if ($role != 'admin') {
+            if ($arr['department_id'] == $department_id) {
+                in_task_dashboard($arr['status'],$arr['name'],$arr['summary'],$arr['id']);
             }
-            if ($key === 'summary') {
-                $summary = $element;
-            }
-
-            if ($key === 'id') {
-                $id_task = $element;
-            }
-
-            if ($key === 'status') {
-                $status = $element;
-            }
+        } else {
+            in_task_dashboard($arr['status'],$arr['name'],$arr['summary'],$arr['id']);
         }
-
-        ?>
-            <div class="col-sm-3 mt-3 " >
-                <div class="card he-default shadow-sm">
-                    <h5 class="card-header <?php
-                        if ($status == "new") {
-                            echo('bg-orange');
-                        } else if ($status == "in progress") {
-                            echo('bg-primary');
-                        } else if ($status == "completed") {
-                            echo('bg-success');
-                        } else if ($status == "reject") {
-                            echo('bg-danger');
-                        } else if ($status == "waiting") {
-                            echo('bg-warning');
-                        } else {
-                            echo('bg-secondary');
-                        }
-                    ?>">
-                        <b><?php echo ($name) ?></b>
-                    </h5>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <?php echo ($summary)?>
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href=<?php echo("./?page=detail&id=" . encrypt($id_task))?> class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        <?php
     }
 ?>
