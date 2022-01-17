@@ -1,5 +1,10 @@
 <?php 
     $thong_tin_user = $_SESSION['thong_tin_user'];
+
+    if ($thong_tin_user->role != 'admin') {
+        header('location: ./?page=404');
+    }
+    
     include_once('./model/xl_nguoi_dung.php');
     include_once('./model/xl_phong_ban.php');
     $xl_nguoi_dung = new xl_nguoi_dung();
@@ -157,7 +162,7 @@
                         <label for="department">Chọn phòng ban</label>
                         <select multiple class="form-control" id="department" name="department">
                             <?php
-                                $all_department = $xl_phong_ban->hien_thi_tat_ca_phong_ban();
+                                $all_department = $xl_phong_ban->hien_thi_ten_va_id_phong_ban();
                                 foreach($all_department as $arr) {
                                     if ($arr['name'] != 'Giám Đốc') {
                                         ?>

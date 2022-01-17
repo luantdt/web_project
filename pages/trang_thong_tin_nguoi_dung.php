@@ -86,7 +86,7 @@
                             Thông tin người dùng
                         </h3>
                         <div class="mt-4">
-                            <img src=".<?php echo($thong_tin->pic)?>" class="rounded mx-auto d-block avatar border border-success" alt="Hình ảnh đại diện">
+                            <img src=".<?php echo($thong_tin->pic)?>" class="mx-auto d-block avatar border border-success" alt="Hình ảnh đại diện">
                         </div>
                         <div class="mt-3">
                             <label for="exampleInputPassword1">Họ và tên</label>

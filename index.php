@@ -23,6 +23,8 @@
                     include_once('./pages/trang_quan_ly_don_xin_phep.php');
                 } else if ($_GET['page'] == 'employee') {
                     include_once('./pages/trang_quan_ly_nhan_su.php');
+                } else if ($_GET['page'] == 'department') {
+                    include_once('./pages/trang_quan_ly_phong_ban.php');
                 } else {
                     include_once('./pages/404.php');
                 }

@@ -61,5 +61,24 @@
             $this->update();
         }
 
+        function hien_thi_ten_va_id_nhan_vien () {
+            $string_sql = "SELECT id, fullName FROM `users` WHERE role = 'employee'";
+            $this->setSQL($string_sql);
+            $this->execute();
+            $result = $this->loadAllRow();
+            return $result;
+        }
+
+        function cap_nhap_role_thanh_leader ($id) {
+            $string_sql = "UPDATE `users` SET `role` = 'leader' WHERE `users`.`id` = $id;";
+            $this->setSQL($string_sql);
+            $this->update();
+        }
+
+        function cap_nhap_role_thanh_employee ($id) {
+            $string_sql = "UPDATE `users` SET `role` = 'employee' WHERE `users`.`id` = $id;";
+            $this->setSQL($string_sql);
+            $this->update();
+        }
     }
 ?>

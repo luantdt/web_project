@@ -1,0 +1,14 @@
+https://gitlab.com/locph
+https://github.com/dmajkic/redis/downloads
+
+
+admin
+
+sửa connect script--add-db.js
+
+websocket, grapql apollo
+
+token (10s) -> gui len request khác gồm request token -> check
+
+
+redis (mem cache) -> db
