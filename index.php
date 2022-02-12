@@ -4,6 +4,7 @@
     if(isset($_GET['page'])) {
         if(isset($_SESSION['thong_tin_user'])){
             include_once('./lib/function_support.php');
+            include('./auth.php');
             if ($_GET['page'] == 'changpwd') {
                 include_once('./pages/trang_thay_doi_mat_khau.php');
             } else {

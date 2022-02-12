@@ -4,9 +4,9 @@ data                       chứa database, import với database tên là compa
 model/database.php         chỉnh sửa kết nối database
 
 Các tài khoản có trong database
-    admin: admin
-    leader: 12345
-    newmember: 123123123    (123 ba lần)
-    employee: 123123123     (123 ba lần)
-    dion: 123123123         (123 ba lần)
-    code: 12345678
+    admin: 123123123 (123 ba lần)
+
+- chưa kiểm tra về số lượng nhân viên tối đa của phòng ban trước khi thêm nhân viên vào phòng ban
+- chưa tạo được api
+- chưa triển khai ajax
+- fontend chưa responsive

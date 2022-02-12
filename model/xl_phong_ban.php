@@ -45,5 +45,19 @@
             $result = $this->loadAllRow();
             return $result;
         }
+
+        function tro_thanh_truong_phong ($id_department, $id_user) {
+            $string_sql = " UPDATE `department` SET `leader_id` = '$id_user' WHERE `department`.`id` = '$id_department';";
+            $this->setSQL($string_sql);
+            $this->update();
+        }
+
+        function hien_thi_id_leader_theo_id_phong_ban ($id_department) {
+            $string_sql = "SELECT leader_id FROM `department` WHERE `id` = $id_department";
+            $this->setSQL($string_sql);
+            $this->execute();
+            $result = $this->loadRow();
+            return $result;
+        }
     }
 ?>

@@ -23,11 +23,9 @@
             if ($size > 2 * 1024 * 1024) {
                 $mess_av  = "Tập tin hình ảnh lớn hơn quy định cho phép.";
             } else if ($type === "jpg" || $type === "jpeg" || $type === "png" ) {
-                $dest = $_SERVER['DOCUMENT_ROOT'] . '/web/web_project/public/avt/' .'av' . $id . '.' . $type;
+                $dest = $_SERVER['DOCUMENT_ROOT'] . '/web_project/public/avt/' .'av' . $id . '.jpg';
                 move_uploaded_file($tmp, $dest);
-                $xl_nguoi_dung->cap_nhap_anh('/public/avt/' .'av' . $id . '.' . $type , $id);
-                $mess_av  = "Bạn đã cập nhập hình ảnh đại diện thành công.";
-                $flag_err = 1;
+                $xl_nguoi_dung->cap_nhap_anh('/public/avt/' .'av' . $id . '.jpg' , $id);
                 header("Refresh:0");
             } else {
                 $mess_av  = "Tập tin tải lên không đúng với quy định.";

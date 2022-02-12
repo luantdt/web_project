@@ -1,0 +1,8 @@
+POST http://localhost:8080/web_project/?page=department
+Content-Type: application/json
+
+{
+    "btn-employeeToLeader'":"",
+    "employeeToLeader": "12 - alabatrap",
+    "current-department":"TVE9PQ=="
+}

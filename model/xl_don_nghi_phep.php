@@ -5,6 +5,7 @@
 
         function xl_don_nghi_phep(){
             parent::database();
+            $this->database();
         }
 
         function hien_thi_don_nghi_phep_theo_user_created($user_created){

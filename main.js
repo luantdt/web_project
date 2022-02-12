@@ -11,11 +11,11 @@ $(document).ready(function(){
                 $('.count-down').text(time);
             }
         }, 1000);
-
-        $('.redirect-login').click(function (){
-            window.location="./";
-        });
     };
+
+    $('.btn-redirect-login').click(function (){
+        window.location="./";
+    });
     $('#btn-reject-task').click(function (){
         btnClick = 'reject';
     });
@@ -285,4 +285,20 @@ $(document).ready(function(){
             }
         }
     })
+
+    $(".show-modal-change-leader").on('click', function (e) {
+        let idBtn = e.currentTarget.id;
+        let curr = $('#' + idBtn).siblings().val();
+        $('#current-department').val(curr);
+        let no = idBtn.split("-")[3];
+        $("#label-employee-to-leader").html('Chọn nhân viên thành trưởng phòng <b>' + $(".dn-" + no).text() + '</b>')
+    })
+    $("#form-change-employee-to-leader").submit(function () {
+        var result = confirm("Bạn có thực hiện thêm hoặc thay đổi trưởng phòng hiện tại không?");
+        if (result) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 })

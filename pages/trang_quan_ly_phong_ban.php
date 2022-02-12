@@ -14,10 +14,29 @@
     $all_employee = $xl_nguoi_dung->hien_thi_ten_va_id_nhan_vien();
 
     if (isset($_POST['btn-employeeToLeader'])) {
-        if (isset($_POST['employeeToLeader']) && $_POST['employeeToLeader'] != '') {
+        if ( isset($_POST['employeeToLeader']) && 
+        $_POST['employeeToLeader'] != '' &&
+        $_POST['current-department'] != '' &&
+        isset($_POST['current-department'])) 
+        {
             $employeeToLeader = explode(' - ', $_POST['employeeToLeader']);
             $id_employee = $employeeToLeader[0];
-        };
+            $id_department = decrypt($_POST['current-department']);
+            $id_old_leader = $xl_phong_ban->hien_thi_id_leader_theo_id_phong_ban($id_department);
+
+            $xl_nguoi_dung->thay_doi_role_thanh_truong_phong($id_employee);
+            $xl_nguoi_dung->thay_doi_role_thanh_employee($id_old_leader->leader_id);
+            $xl_phong_ban->tro_thanh_truong_phong($id_department, $id_employee);
+            header("Refresh:0");
+        } else {
+            echo json_encode(
+                array(
+                    'error' => true,
+                    'message' => 'your information is invalid',
+                )
+            );
+            die();
+        }
     };
 ?>
 <div class="row h-100">
@@ -48,14 +67,13 @@
                     <?php
                         $i = 0;
                         foreach($all_dept as $val) {
-
-                            $i += 1;
                             if (!empty($xl_phong_ban->hien_thi_ten_truong_phong_theo_phong_ban($val['id']))) {
+                                $i += 1;
                                 ?>
                                 
                                     <tr>
                                         <th scope="row"><?php echo($i)?></th>
-                                        <td><?php echo($val['name'])?></td>
+                                        <td class="dn-<?php echo($i)?>"><?php echo($val['name'])?></td>
                                         <td><?php echo($val['amount_people'])?></td>
                                         <td>
                                             <b><?php
@@ -69,7 +87,8 @@
                                             ?></b>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ChangeLeaderDepartment"><b>Thay đổi</b></button>
+                                            <input type="text" style="display: none" value='<?php echo(encrypt($val['id']))?>'>
+                                            <button type="button" class="btn btn-danger show-modal-change-leader" id="btn-show-no-<?php echo($i)?>" data-toggle="modal" data-target="#ChangeLeaderDepartment"><b>Thay đổi</b></button>
                                         </td>
                                     </tr>
                                 <?php
@@ -82,7 +101,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal thay đổi trưởng phòng -->
 <div class="modal fade" id="ChangeLeaderDepartment" tabindex="-1" aria-labelledby="ChangeLeaderDepartment" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content"> 
@@ -92,15 +111,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="" method="post">
+      <form action="" method="post" id="form-change-employee-to-leader">
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="employeeToLeader">Chọn nhân viên thành trưởng phòng</label>
+                    <label for="employeeToLeader" id="label-employee-to-leader"></label>
                     <select multiple class="form-control" id="employeeToLeader" name="employeeToLeader">
                         <?php
                             foreach($all_employee as $val) {
                                 ?>
-                                    <option value="<?php echo($val['id']. ' - '. $val['fullName'])?>">
+                                    <option 
+                                        value="<?php echo($val['id']. ' - '. $val['fullName'])?>"
+                                        name="employeeToLeader"
+                                    >
                                         <?php echo($val['id']. ' - '. $val['fullName'])?>
                                     </option>
                                 <?php
@@ -110,6 +132,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <input type="text" style="display: none" value='' name="current-department" id="current-department">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 <button type="submit" class="btn btn-danger" name="btn-employeeToLeader">Thay đổi trưởng phòng</button>
             </div>
@@ -118,7 +141,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal tạo phòng ban-->
 <div class="modal fade" id="createDepartment" tabindex="-1" aria-labelledby="createDepartment" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
