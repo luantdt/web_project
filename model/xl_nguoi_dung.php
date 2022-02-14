@@ -14,6 +14,14 @@
             $result = $this->loadRow();
             return $result;
         }
+
+        function thong_tin_user_theo_id_tai_khoan($id) {
+            $string_sql = "SELECT * FROM users WHERE id = '$id'";
+            $this->setSQL($string_sql);
+            $this->execute();
+            $result = $this->loadRow();
+            return $result;
+        }
         
         function thong_tin_nguoi_dung_theo_id_tai_khoan($id) {
             $string_sql = "SELECT u.*, s.* FROM users u inner join department s on u.department_id = s.id  WHERE u.id = $id";

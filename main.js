@@ -294,11 +294,33 @@ $(document).ready(function(){
         $("#label-employee-to-leader").html('Chọn nhân viên thành trưởng phòng <b>' + $(".dn-" + no).text() + '</b>')
     })
     $("#form-change-employee-to-leader").submit(function () {
-        var result = confirm("Bạn có thực hiện thêm hoặc thay đổi trưởng phòng hiện tại không?");
+        let result = confirm("Bạn có muốn thực hiện thêm hoặc thay đổi trưởng phòng hiện tại không?");
         if (result) {
             return true;
         } else {
             return false;
         }
     });
+
+    $('#form-create-department').submit(function () {
+        let newDfm = $('#dfm-name').val();
+        if (newDfm == '') {
+            alert('Bạn cần nhập thông tin tên phòng ban bắt đầu để gửi thao tác');
+            return false;
+        } else if ($("#dfm-detail").val() == ''){
+            alert('Bạn cần nhập thông tin mô tả phòng ban để gửi thao tác');
+            return false;
+        } else if ($("#dfm-amount").val() <= 0 ||  $("#dfm-amount").val() == '') {
+            alert('Bạn cần nhập thông tin số lượng nhân sự hoặc số lượng nhân sự phải lớn hơn 0 để gửi thao tác');
+            return false;
+        } else  {
+            let result = confirm("Bạn có muốn thực hiện tạo một phòng ban "+ newDfm + " này không?");
+            if (result) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+    })
 })

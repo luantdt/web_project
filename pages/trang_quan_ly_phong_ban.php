@@ -38,6 +38,41 @@
             die();
         }
     };
+
+    if (isset($_POST['btn-create-department'])) {
+        if ( isset($_POST['dfm-name']) && 
+        $_POST['dfm-name'] != '' &&
+        $_POST['dfm-detail'] != '' &&
+        isset($_POST['dfm-detail']) &&
+        $_POST['dfm-amount'] != '' &&
+        isset($_POST['dfm-amount'])) 
+        {
+            if ($_POST['dfm-amount'] > 0 ) {
+                $name = $_POST['dfm-name'];
+                $detail = $_POST['dfm-detail'];
+                $amount = $_POST['dfm-amount'];
+
+                $xl_phong_ban->them_phong_ban_moi($name, $amount, $detail);
+                header("Refresh:0");
+            } else {
+                echo json_encode(
+                    array(
+                        'error' => true,
+                        'message' => 'your information is invalid',
+                    )
+                );
+                die();
+            }
+        } else {
+            echo json_encode(
+                array(
+                    'error' => true,
+                    'message' => 'your information is invalid',
+                )
+            );
+            die();
+        }
+    }
 ?>
 <div class="row h-100">
     
@@ -67,7 +102,8 @@
                     <?php
                         $i = 0;
                         foreach($all_dept as $val) {
-                            if (!empty($xl_phong_ban->hien_thi_ten_truong_phong_theo_phong_ban($val['id']))) {
+                            $fullNameLeader = $xl_phong_ban->hien_thi_ten_truong_phong_theo_phong_ban($val['id']);
+                            if (!empty($fullNameLeader) || $val['leader_id'] == 0) {
                                 $i += 1;
                                 ?>
                                 
@@ -83,7 +119,11 @@
                                         <td><?php echo($val['description'])?></td>
                                         <td>
                                             <b><?php 
-                                                echo($xl_phong_ban->hien_thi_ten_truong_phong_theo_phong_ban($val['id'])[0]['fullName'])
+                                                if ($val['leader_id'] == 0) {
+                                                    echo ("<i class='text-warning'>Empty...</i>");
+                                                } else {
+                                                    echo($fullNameLeader[0]['fullName']);
+                                                }
                                             ?></b>
                                         </td>
                                         <td>
@@ -151,17 +191,23 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="">
+            <form action="" method="post" id="form-create-department" novalidate>
                 <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
+                   
+                    <label for="dfm-name">Tên phòng ban</label>
+                    <input type="text" class="form-control" id="dfm-name" name="dfm-name" aria-describedby="dfm-help">
+                    <small id="dfm-help" class="form-text text-muted">Tên phòng ban không được trùng với các phòng ban khác</small>
+
+                    <label for="dfm-detail">Mô tả tên phòng ban</label>
+                    <textarea class="form-control" id="dfm-detail" name="dfm-detail" ></textarea>
+
+                    <label for="dfm-amount">Số lượng nhân viên</label>
+                    <input type="number" class="form-control" id="dfm-amount" name="dfm-amount" min="0">
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-success">Tạo phòng ban mới</button>
+                    <button type="submit" class="btn btn-success" name="btn-create-department">Tạo phòng ban mới</button>
                 </div>
             </form>
         </div>

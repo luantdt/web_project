@@ -59,5 +59,11 @@
             $result = $this->loadRow();
             return $result;
         }
+
+        function them_phong_ban_moi ($name, $amount, $des) {
+            $string_sql = "INSERT INTO `department` (`id`, `name`, `amount_people`, `description`, `leader_id`) VALUES (NULL, '$name', '$amount', '$des', '0');";
+            $this->setSQL($string_sql);
+            $this->update();
+        }
     }
 ?>
